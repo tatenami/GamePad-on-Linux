@@ -37,6 +37,8 @@
 
 class DualSense: public GamePad{
 protected:
+    void button_process();
+    void axis_process();
     void data_process();
 public:
     DualSense(std::string controller_name);

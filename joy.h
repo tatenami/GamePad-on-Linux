@@ -38,10 +38,12 @@ protected:
     std::array<int8_t, TOTAL_AXIS> axis_data;
 
     bool find_device_file(std::string controller_name);
-    virtual void data_process();
+    virtual void button_process() = 0;
+    virtual void axis_process() = 0;
 
 public:
     GamePad(std::string controller_name);
+    void data_process();
     bool is_connect();
     void set_Ystick_num(int left, int right);
     void load_data();
