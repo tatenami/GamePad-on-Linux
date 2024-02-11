@@ -1,8 +1,5 @@
 #include "joy.h"
 
-#define CONTROLLER_NAME "Sony Interactive Entertainment DualSense Wireless Controller"
-#define DEVICE_LIST_FILE_NAME "/proc/bus/input/devices"
-
 /* 
 ----------------[ Game Pad Class ]-----------------
 */

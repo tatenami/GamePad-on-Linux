@@ -22,6 +22,7 @@
 #define TOTAL_AXIS 6
 #define TYPE_FILTER 0x7f
 #define RATE_8B_per_16B 127 / 32767
+
 #define DEVICE_LIST_FILE_NAME "/proc/bus/input/devices"
 
 class GamePad{
