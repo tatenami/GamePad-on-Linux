@@ -28,13 +28,13 @@ class GamePad{
 protected:
     bool connection;
     int dev_fd;
-    string device_file;
+    std::string device_file;
     struct js_event event;
 
     int leftY_num, rightY_num;
 
-    bitset<TOTAL_BUTTON> button_data, pre_button_data;
-    array<int8_t, TOTAL_AXIS> axis_data;
+    std::bitset<TOTAL_BUTTON> button_data, pre_button_data;
+    std::array<int8_t, TOTAL_AXIS> axis_data;
 
     bool find_device_file(std::string controller_name);
     virtual void data_process();
