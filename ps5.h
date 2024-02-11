@@ -3,7 +3,7 @@
 
 #include "joy.h"
 
-#define CONTROLLER_NAME "DualSense Wireless Controller"
+#define CONTROLLER_NAME "\"DualSense Wireless Controller\""
 
 // buttons
 #define CROSS       0
