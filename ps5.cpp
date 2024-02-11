@@ -51,7 +51,7 @@ void DualSense::data_process(){
     }
 }
 
-DualSense::DualSense(string controller_name): GamePad(controller_name)
+DualSense::DualSense(std::string controller_name): GamePad(controller_name)
 {
     set_Ystick_num(LEFT_Y, RIGHT_Y);
 }

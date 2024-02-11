@@ -24,8 +24,6 @@
 #define RATE_8B_per_16B 127 / 32767
 #define DEVICE_LIST_FILE_NAME "/proc/bus/input/devices"
 
-using namespace std;
-
 class GamePad{
 protected:
     bool connection;
@@ -38,11 +36,11 @@ protected:
     bitset<TOTAL_BUTTON> button_data, pre_button_data;
     array<int8_t, TOTAL_AXIS> axis_data;
 
-    bool find_device_file(string controller_name);
+    bool find_device_file(std::string controller_name);
     virtual void data_process();
 
 public:
-    GamePad(string controller_name);
+    GamePad(std::string controller_name);
     bool is_connect();
     void set_Ystick_num(int left, int right);
     void load_data();
