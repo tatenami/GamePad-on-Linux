@@ -40,6 +40,7 @@ protected:
     void data_process();
 public:
     DualSense(string controller_name);
+    void get_stick_arg(double& left_arg, double& right_arg);
 };
 
 #endif

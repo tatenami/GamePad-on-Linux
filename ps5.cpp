@@ -56,20 +56,7 @@ DualSense::DualSense(string controller_name): GamePad(controller_name)
     set_Ystick_num(LEFT_Y, RIGHT_Y);
 }
 
-// int main(){
-//     DualSense PS5(CONTROLLER_NAME);
-
-//     while(PS5.is_connect()){
-//         PS5.load_data();
-//         for(int i = 0; i < 17; i++){
-//             cout << "button " << i << " value: " << PS5.is_ON(i) << "\n";
-//         }
-
-//         for(int j = 0; j < 6; j++){
-//             cout << "axis " << j << " value: " << PS5.get_stick_value(j) << "\n";
-//         }
-//         cout << endl;
-//     }
-
-//     return 0;
-// }
+void DualSense::get_stick_arg(double& left_arg, double& right_arg){
+    left_arg = atan2(axis_data[LEFT_Y], axis_data[LEFT_X]);
+    right_arg = atan2(axis_data[RIGHT_Y], axis_data[RIGHT_X]);
+}
