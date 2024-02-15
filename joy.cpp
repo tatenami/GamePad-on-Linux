@@ -70,8 +70,6 @@ GamePad::GamePad(std::string controller_name, int total_buttons, int total_axise
 }
 
 bool GamePad::is_connect(){
-    connection = find_device_file(dev_name);
-
     return connection;
 }
 
