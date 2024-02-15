@@ -5,6 +5,9 @@
 
 #define CONTROLLER_NAME "\"DualSense Wireless Controller\""
 
+#define TOTAL_BUTTON 17
+#define TOTAL_AXIS 6
+
 // buttons
 #define CROSS       0
 #define CIRCLE      1

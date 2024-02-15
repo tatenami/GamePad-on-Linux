@@ -46,6 +46,7 @@ bool GamePad::find_device_file(std::string controller_name){
 
 GamePad::GamePad(std::string controller_name){
     connection = find_device_file(controller_name);
+    dev_name = controller_name;
 
     if(!connection){
         std::cout << "Fail to connect [ " << controller_name << " ]" << std::endl;
@@ -56,9 +57,21 @@ GamePad::GamePad(std::string controller_name){
     if(read(dev_fd, &event, sizeof(event)) == -1){
         std::cout << "Fail to read data" << std::endl;
     }
+
+    button_data.resize(DEFAULT_TOTAL_BUTTON);
+    pre_button_data.resize(DEFAULT_TOTAL_BUTTON);
+    axis_data.resize(DEFAULT_TOTAL_AXIS);
+}
+
+GamePad::GamePad(std::string controller_name, int total_buttons, int total_axises): GamePad(controller_name){
+    button_data.resize(total_buttons);
+    pre_button_data.resize(total_buttons);
+    axis_data.resize(total_axises);
 }
 
 bool GamePad::is_connect(){
+    connection = find_device_file(dev_name);
+
     return connection;
 }
 
@@ -66,54 +79,6 @@ void GamePad::set_Ystick_num(int left_num, int right_num){
     leftY_num = left_num;
     rightY_num = right_num;
 }
-
-// void GamePad::button_process(){
-//     pre_button_data = button_data;
-//     button_data[event.number] = event.value;
-// }
-
-// void GamePad::axis_process(){
-//     int axis_value;
-//     if(event.number == 6){
-//         if(event.value > 0){
-//                 button_data[14] = ON;
-//                 button_data[13] = OFF;
-//             }
-//             else if(event.value < 0){
-//                 button_data[13] = ON;
-//                 button_data[14] = OFF;
-//             }
-//             else{
-//                 button_data[13] = OFF;
-//                 button_data[14] = OFF;
-//             }
-//         }   
-//         else if(event.number == 7){
-//             if(event.value > 0){
-//                 button_data[16] = ON;
-//                 button_data[15] = OFF;
-//             }
-//             else if(event.value < 0){
-//                 button_data[15] = ON;
-//                 button_data[16] = OFF;
-//             }
-//             else{
-//                 button_data[15] = OFF;
-//                 button_data[16] = OFF;
-//             }
-//         }
-//         else{
-//             axis_value = event.value * RATE_8B_per_16B;
-//             if(event.number == leftY_num || event.number == rightY_num){
-//                 axis_value *= -1;
-//             }
-//         }
-
-//     if(abs(axis_value) < 5){
-//         axis_value = 0;
-//     }
-//     axis_data[event.number] = (int8_t)axis_value;
-// }
 
 void GamePad::data_process(){
     switch(event.type & TYPE_FILTER){
@@ -126,8 +91,10 @@ void GamePad::data_process(){
     }
 }
 
-void GamePad::load_data(){
-    if(read(dev_fd, &event, sizeof(event)) == sizeof(struct js_event)){
+int GamePad::load_data(){
+    int size;
+    size = read(dev_fd, &event, sizeof(event));
+    if(size == sizeof(struct js_event)){
         connection = true;
         data_process();
     }
@@ -135,16 +102,16 @@ void GamePad::load_data(){
         connection = false;
         std::cout << "fail to read pad data" << std::endl;
     }
+    return size;
 }
 
 bool GamePad::is_ON(int button_number){
-    bool is_on;
+    bool is_on = false;
     if(button_number == ANY){
-        if(button_data.any()){
-            is_on = true;
-        }
-        else{
-            is_on = false;
+        for(auto b: button_data){
+            if(b){
+                is_on = true;
+            }
         }
     }
     else{
