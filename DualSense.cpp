@@ -34,7 +34,7 @@ void DualSense::axis_process(){
             button_data[14] = false;
         }
     }
-    else if(event_num == 7){
+    else if(event_num == ds::cross_y_axis){
             if(axis_value > 0){
                 button_data[16] = true;
                 button_data[15] = false;
