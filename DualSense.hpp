@@ -3,33 +3,33 @@
 
 #include "GamePad.hpp"
 
-namespace ds{
+namespace ds5{
     enum class button{
-        cross,
-        circle,
-        triangle,
-        square,
+        CROSS,
+        CIRCLE,
+        TRIANGLE,
+        SQUARE,
         L1,
         R1,
         L2,
         R2,
-        create,
-        option,
-        home,
+        CREATE,
+        OPTION,
+        HOME,
         L3,
         R3,
-        left,
-        right,
-        up,
-        down
+        LEFT,
+        RIGHT,
+        UP,
+        DOWN
     };
     enum class axis{
-        left_x,
-        left_y,
-        L3_depth,
-        right_x,
-        right_y,
-        R3_depth
+        LEFT_X,
+        LEFT_Y,
+        L3_DEPTH,
+        RIGHT_X,
+        RIGHT_Y,
+        R3_DEPTH
     };
 
     extern const int left_y_num;
@@ -43,7 +43,7 @@ namespace ds{
     extern const int total_axis;
 }
 
-class DualSense: public GamePad{
+class DualSense: public pad::GamePad{
 private:
     void button_process() override;
     void axis_process() override;
@@ -57,10 +57,12 @@ public:
     using GamePad::is_Pushed;
     using GamePad::is_Released;
     using GamePad::get_axis_value;
-    bool is_ON(ds::button button);
-    bool is_Pushed(ds::button button);
-    bool is_Released(ds::button button);
-    int get_axis_value(ds::axis axis);
+    bool is_ON(ds5::button button);
+    bool is_Pushed(ds5::button button);
+    bool is_Released(ds5::button button);
+    int get_axis_value(ds5::axis axis);
+    std::vector<bool> get_raw_button_data();
+    std::vector<int16_t> get_raw_axis_data();
 };
 
 #endif
