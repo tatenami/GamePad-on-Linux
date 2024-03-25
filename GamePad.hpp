@@ -7,12 +7,12 @@
 #include <linux/types.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <stdint.h>
 
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <bitset>
 #include <cmath>
 
 namespace pad{

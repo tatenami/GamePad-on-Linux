@@ -31,12 +31,7 @@ namespace pad{
                 msg = "Fail to find target device";
                 throw msg;
             }
-        }catch(std::string msg){
-            std::cout << msg << std::endl;
-            return false;
-        }
 
-        try{
             while(std::getline(read_stream, read_buf)){
                 pos = read_buf.find("js");
                 if(pos != std::string::npos){
@@ -45,21 +40,13 @@ namespace pad{
                 }
                 else{
                     connection_state = false;
+                    msg = "Fail to find device file";
+                    throw msg;
                 }
             }
-            if(connection_state == false){
-                msg = "Fail to find device file";
-                throw msg;
-            }
-        }
-        catch(std::string msg){
-            std::cout << msg << std::endl;
-            return false;
-        }
         
-        read_stream.close();
+            read_stream.close();
 
-        try{
             pad_info.device_file = "/dev/input/" + read_buf.substr(pos, 3);
 
             pad_info.device_fd = open(pad_info.device_file.c_str(), O_RDONLY);
@@ -83,6 +70,7 @@ namespace pad{
             return false;
         }
 
+        std::cout << "Initialized controller" << std::endl;
         return connection_state;
     }
 
@@ -176,7 +164,7 @@ namespace pad{
     }
 
     int GamePad::get_axis_value(int number){
-        return (int)axis_data[number];
+        return static_cast<int>(axis_data[number]);
     }
 
 }
